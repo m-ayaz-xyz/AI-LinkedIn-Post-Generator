@@ -15,7 +15,7 @@ bun dev
 ```
 
 ## .env.local format (will be placed in the root directory)
-
+```bash
 Firebase web app config
 NEXT_PUBLIC_FIREBASE_API_KEY="....."
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="...."
@@ -26,7 +26,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID= "..."
 
 Gemini API key (server-only)
 GEMINI_API_KEY=apikey
-
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
