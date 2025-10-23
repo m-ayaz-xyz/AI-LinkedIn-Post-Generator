@@ -27,7 +27,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 import { Info, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { auth, db } from "@/lib/firebase";
@@ -40,12 +40,11 @@ const page = () => {
   const [len, setLen] = useState("");
 
   console.log("data", desc, tone, len);
-  
 
-  const [result, setResult]= useState("")
-  const [loading, setLoading]= useState(false)
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    async function generate() {
+  async function generate() {
     if (!desc) return alert("Enter Description");
     setLoading(true);
     setResult("");
@@ -53,7 +52,7 @@ const page = () => {
       const r = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ desc, tone, len}),
+        body: JSON.stringify({ desc, tone, len }),
       });
       const j = await r.json();
       if (j.text) setResult(j.text);
@@ -66,15 +65,13 @@ const page = () => {
     }
   }
 
-
-
   const [userdetail, setUserdetail] = useState(null);
   const fetchuserData = async () => {
     auth.onAuthStateChanged(async (user) => {
       if (!user) {
-    console.log("No user logged in");
-    return setUserdetail(null);
-  }
+        console.log("No user logged in");
+        return setUserdetail(null);
+      }
       console.log(user);
       const docRef = doc(db, "LinkedInUser", user.uid);
       const docSnap = await getDoc(docRef);
@@ -111,22 +108,26 @@ const page = () => {
               </CardDescription>
               <CardAction>
                 <Tooltip>
-  <TooltipTrigger>
-                <Button variant="outline" size="icon" aria-label="Submit">
-  <Info />
-</Button>
-</TooltipTrigger>
-  <TooltipContent>
-    <p>Powered by Google Gemini Pro AI.</p>
-  </TooltipContent>
-</Tooltip>
+                  <TooltipTrigger>
+                    <Button variant="outline" size="icon" aria-label="Submit">
+                      <Info />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Powered by Google Gemini Pro AI.</p>
+                  </TooltipContent>
+                </Tooltip>
               </CardAction>
             </CardHeader>
             <CardContent>
               <div className="flex gap-3 flex-col">
                 <label htmlFor="">What's your post about ?</label>
                 <InputGroup>
-                  <InputGroupTextarea value={desc} onChange={e=>setDesc(e.target.value)} placeholder="Describe Your Post Idea/Content" />
+                  <InputGroupTextarea
+                    value={desc}
+                    onChange={(e) => setDesc(e.target.value)}
+                    placeholder="Describe Your Post Idea/Content"
+                  />
                   <InputGroupAddon align="block-end">
                     <InputGroupText className="text-muted-foreground text-xs">
                       (Example: "Announcing my new Startup", "Sharing a
@@ -135,7 +136,7 @@ const page = () => {
                   </InputGroupAddon>
                 </InputGroup>
                 <label htmlFor="">Pick Youe Tone</label>
-                <Select onValueChange = {setTone}>
+                <Select onValueChange={setTone}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Tone" />
                   </SelectTrigger>
@@ -147,7 +148,7 @@ const page = () => {
                   </SelectContent>
                 </Select>
                 <label htmlFor="">How Long Should Your Post Be ?</label>
-                <Select onValueChange = {setLen}>
+                <Select onValueChange={setLen}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Length" />
                   </SelectTrigger>
@@ -161,7 +162,12 @@ const page = () => {
               {/* <input type="email" name="" id=""  onChange={(e)=>setDesc(e.target.value)}/> */}
             </CardContent>
             <CardFooter>
-              <button onClick={generate} className="w-full bg-black p-2 text-white rounded-md">Create</button>
+              <button
+                onClick={generate}
+                className="w-full bg-black p-2 text-white rounded-md"
+              >
+                {loading ? "Generating...." : "Create"}
+              </button>
             </CardFooter>
           </Card>
         </div>
@@ -170,14 +176,22 @@ const page = () => {
           className="w-auto h-auto flex justify-center items-center"
           style={{ height: "calc(100vh - 180px)" }}
         >
-          <Skeleton className="h-[515px] w-[1051px] rounded-xl"/>
+          <Skeleton className="h-[515px] w-[1051px] rounded-xl" />
         </div>
       )}
-    
-    {result && (
+
+      {result && (
         <div style={{ marginTop: 16 }}>
           <h3>Generated Post</h3>
-          <div style={{ whiteSpace: "pre-wrap", background: "#f7f7f7", padding: 12 }}>{result}</div>
+          <div
+            style={{
+              whiteSpace: "pre-wrap",
+              background: "#f7f7f7",
+              padding: 12,
+            }}
+          >
+            {result}
+          </div>
         </div>
       )}
     </>

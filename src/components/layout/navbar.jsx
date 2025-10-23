@@ -47,7 +47,7 @@ const Navbar = () => {
     <>
       <div className="flex gap-5 items-center">
         <Link href={"/"}>Home</Link>
-        <Link href={"/"}>About</Link>
+        <Link href={"/about"}>About</Link>
         {(pathname  !== "/generate" && userdetail) ? (
           <Link href={"/generate"}>Generate</Link>
         ) : null}
