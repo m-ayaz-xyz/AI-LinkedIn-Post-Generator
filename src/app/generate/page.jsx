@@ -23,7 +23,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Rocket } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { Info, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { auth, db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -104,7 +109,18 @@ const page = () => {
                 performing LinkedIn posts - weather you're building your
                 personal brand or promoting your business.
               </CardDescription>
-              <CardAction>Card Action</CardAction>
+              <CardAction>
+                <Tooltip>
+  <TooltipTrigger>
+                <Button variant="outline" size="icon" aria-label="Submit">
+  <Info />
+</Button>
+</TooltipTrigger>
+  <TooltipContent>
+    <p>Powered by Google Gemini Pro AI.</p>
+  </TooltipContent>
+</Tooltip>
+              </CardAction>
             </CardHeader>
             <CardContent>
               <div className="flex gap-3 flex-col">
@@ -145,7 +161,7 @@ const page = () => {
               {/* <input type="email" name="" id=""  onChange={(e)=>setDesc(e.target.value)}/> */}
             </CardContent>
             <CardFooter>
-              <button onClick={generate} className="w-full bg-black">Create</button>
+              <button onClick={generate} className="w-full bg-black p-2 text-white rounded-md">Create</button>
             </CardFooter>
           </Card>
         </div>
